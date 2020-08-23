@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-sudo apt update
-sudo apt install software-properties-common
-sudo add-apt-repository ppa:wireguard/wireguard
-sudo apt install wireguard
-wg genkey | sudo tee /wireguard/privatekey | wg pubkey | sudo tee /wireguard/publickey
-sudo chmod 600 /wireguard/{privatekey,wg0.conf}
+add-apt-repository ppa:wireguard/wireguard
+apt-get update
+apt-get install wireguard-dkms wireguard-tools linux-headers-$(uname -r)
+umask 077
+wg genkey | tee server_private_key | wg pubkey > server_public_key
